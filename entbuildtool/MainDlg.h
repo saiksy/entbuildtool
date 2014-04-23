@@ -3,6 +3,8 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "TagDlg.h"
+#include "MakeCabDlg.h"
 
 class CMainDlg : public CAxDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
 		public CMessageFilter, public CIdleHandler
@@ -16,12 +18,13 @@ public:
 	BEGIN_UPDATE_UI_MAP(CMainDlg)
 	END_UPDATE_UI_MAP()
 
-	BEGIN_MSG_MAP(CMainDlg)
+	BEGIN_MSG_MAP_EX(CMainDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+		REFLECT_NOTIFICATIONS()
 	END_MSG_MAP()
 
 // Handler prototypes (uncomment arguments if needed):
@@ -36,4 +39,10 @@ public:
 	LRESULT OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 
 	void CloseDialog(int nVal);
+private:
+	void _InitTabCtrl();
+private:
+	CTabCtrl m_tabMain;
+	CTagDlg m_TagDlg;
+	CMakeCabDlg m_MakeCabDlg;
 };
